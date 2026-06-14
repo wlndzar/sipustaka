@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+  <p class="text-sm text-slate-500">Selamat datang di SIPUSTAKA.</p>
+  <h1 class="text-2xl font-semibold text-slate-800">Dashboard</h1>
+</div>
+
+<!-- Stats Cards -->
+<div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4 mb-6">
+  <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+    <div class="flex items-center justify-between text-slate-500 mb-4">
+      <p class="font-medium">Total Buku</p>
+      <span class="material-icons-outlined text-brand-600">content_copy</span>
+    </div>
+    <p class="text-4xl font-bold text-slate-800">{{ total_buku }}</p>
+    <p class="text-sm text-slate-400 mt-2">Keseluruhan unit buku tersedia.</p>
+  </article>
+
+  <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+    <div class="flex items-center justify-between text-slate-500 mb-4">
+      <p class="font-medium">Total Judul</p>
+      <span class="material-icons-outlined text-brand-600">menu_book</span>
+    </div>
+    <p class="text-4xl font-bold text-slate-800">{{ total_judul }}</p>
+    <p class="text-sm text-slate-400 mt-2">Jumlah koleksi judul buku.</p>
+  </article>
+
+  <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+    <div class="flex items-center justify-between text-slate-500 mb-4">
+      <p class="font-medium">Sedang Dipinjam</p>
+      <span class="material-icons-outlined text-yellow-400">sentiment_neutral</span>
+    </div>
+    <p class="text-4xl font-bold text-slate-800">{{ total_dipinjam }}</p>
+    <p class="text-sm text-slate-400 mt-2">Transaksi peminjaman aktif.</p>
+  </article>
+
+  <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+    <div class="flex items-center justify-between text-slate-500 mb-4">
+      <p class="font-medium">Sudah Dikembalikan</p>
+      <span class="material-icons-outlined text-green-500">check_circle</span>
+    </div>
+    <p class="text-4xl font-bold text-slate-800">{{ total_kembali }}</p>
+    <p class="text-sm text-slate-400 mt-2">Transaksi yang sudah selesai.</p>
+  </article>
+</div>
+
+<!-- Charts Row -->
+<div class="grid gap-5 md:grid-cols-2">
+
+  <!-- Distribusi Stok Buku -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+    <p class="text-sm text-brand-600 font-medium mb-1">Analisis Stok</p>
+    <h2 class="text-lg font-semibold text-slate-800 mb-5">Distribusi Stok Buku</h2>
+    <div class="flex flex-col gap-4">
+      {% for judul, stok in stok_buku %}
+      <div>
+        <div class="flex justify-between text-sm mb-1">
+          <span class="text-slate-700">{{ judul }}</span>
+          <span class="text-brand-600 font-medium">{{ stok }}</span>
+        </div>
+        <div class="w-full bg-slate-100 rounded-full h-2">
+          <div class="bg-brand-600 h-2 rounded-full" style="width: {% widthratio stok max_stok 100 %}%"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Ringkasan Transaksi -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
+    <p class="text-sm text-brand-600 font-medium mb-1">Status Peminjaman</p>
+    <h2 class="text-lg font-semibold text-slate-800 mb-5">Ringkasan Transaksi</h2>
+    {% with total=total_dipinjam|add:total_kembali %}
+    <div class="flex flex-col gap-4">
+      <div>
+        <div class="flex justify-between text-sm mb-1">
+          <span class="text-slate-700">Sedang Dipinjam</span>
+          <span class="text-yellow-500 font-medium">{{ total_dipinjam }}</span>
+        </div>
+        <div class="w-full bg-slate-100 rounded-full h-2">
+          {% if total > 0 %}
+          <div class="bg-yellow-400 h-2 rounded-full" style="width: {% widthratio total_dipinjam total 100 %}%"></div>
+          {% else %}
+          <div class="bg-yellow-400 h-2 rounded-full" style="width: 0%"></div>
+          {% endif %}
+        </div>
+      </div>
+      <div>
+        <div class="flex justify-between text-sm mb-1">
+          <span class="text-slate-700">Sudah Dikembalikan</span>
+          <span class="text-slate-400 font-medium">{{ total_kembali }}</span>
+        </div>
+        <div class="w-full bg-slate-100 rounded-full h-2">
+          {% if total > 0 %}
+          <div class="bg-slate-300 h-2 rounded-full" style="width: {% widthratio total_kembali total 100 %}%"></div>
+          {% else %}
+          <div class="bg-slate-300 h-2 rounded-full" style="width: 0%"></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endwith %}
+  </div>
+
+</div>
+{% endblock %}

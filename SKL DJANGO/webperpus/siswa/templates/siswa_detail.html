@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Detail Siswa{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+  <p class="text-sm text-slate-500">Detail data siswa.</p>
+  <h1 class="text-2xl font-semibold text-slate-800">Detail User</h1>
+</div>
+
+<div class="bg-white rounded-2xl border border-slate-200 p-6 max-w-lg">
+  <table class="w-full text-sm">
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500 w-32">ID</td>
+      <td class="py-3 font-medium">{{ siswa.id }}</td>
+    </tr>
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500">Nama</td>
+      <td class="py-3 font-medium">{{ siswa.nama }}</td>
+    </tr>
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500">Kelas</td>
+      <td class="py-3">{{ siswa.kelas }}</td>
+    </tr>
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500">NIS</td>
+      <td class="py-3">{{ siswa.nis }}</td>
+    </tr>
+    <tr>
+      <td class="py-3 text-slate-500">Status</td>
+      <td class="py-3">
+        {% if siswa.is_active %}
+          <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">Aktif</span>
+        {% else %}
+          <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">Nonaktif</span>
+        {% endif %}
+      </td>
+    </tr>
+  </table>
+  <div class="flex gap-2 mt-6">
+    <a href="{% url 'siswa_list' %}" class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700 text-sm">Kembali</a>
+    <a href="{% url 'siswa_update' siswa.id %}" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm">Edit</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Detail Peminjaman{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+  <p class="text-sm text-slate-500">Detail data peminjaman.</p>
+  <h1 class="text-2xl font-semibold text-slate-800">Detail Peminjaman</h1>
+</div>
+
+<div class="bg-white rounded-2xl border border-slate-200 p-6 max-w-lg">
+  <table class="w-full text-sm">
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500 w-36">ID</td>
+      <td class="py-3 font-medium">{{ peminjaman.id }}</td>
+    </tr>
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500">Nama Peminjam</td>
+      <td class="py-3 font-medium">{{ peminjaman.nama_siswa }}</td>
+    </tr>
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500">Buku</td>
+      <td class="py-3">{{ peminjaman.judul_buku }}</td>
+    </tr>
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500">Tanggal Pinjam</td>
+      <td class="py-3">{{ peminjaman.tanggal_pinjam }}</td>
+    </tr>
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500">Jatuh Tempo</td>
+      <td class="py-3">{{ peminjaman.jatuh_tempo }}</td>
+    </tr>
+    <tr class="border-b border-slate-100">
+      <td class="py-3 text-slate-500">Keperluan</td>
+      <td class="py-3">{{ peminjaman.keperluan }}</td>
+    </tr>
+    <tr>
+      <td class="py-3 text-slate-500">Status</td>
+      <td class="py-3">
+        {% if peminjaman.status == 'dipinjam' %}
+          <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-3 py-1 rounded-full">Dipinjam</span>
+        {% elif peminjaman.status == 'dikembalikan' %}
+          <span class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full">Dikembalikan</span>
+        {% else %}
+          <span class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full">Terlambat</span>
+        {% endif %}
+      </td>
+    </tr>
+  </table>
+  <div class="flex gap-2 mt-6">
+    <a href="{% url 'peminjaman_list' %}" class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700 text-sm">Kembali</a>
+    <a href="{% url 'peminjaman_update' peminjaman.id %}" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm">Edit</a>
+  </div>
+</div>
+{% endblock %}

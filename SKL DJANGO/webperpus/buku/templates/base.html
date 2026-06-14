@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}SIPUSTAKA{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50:  '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-100 text-slate-800 flex h-screen overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-slate-900 text-white flex flex-col p-4 shrink-0">
+    <div class="flex items-center gap-3 mb-8 mt-2">
+      <div class="w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center font-bold text-sm">P</div>
+      <div>
+        <p class="text-xs text-slate-400">SIPUSTAKA</p>
+        <p class="font-semibold text-sm leading-tight">Sistem Peminjaman Buku</p>
+      </div>
+    </div>
+    <nav class="flex flex-col gap-1 flex-1">
+      <a href="/dashboard/" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-700 text-sm">
+        <span class="material-icons-outlined text-lg">dashboard</span> Dashboard
+      </a>
+      <a href="/buku/" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-700 text-sm">
+        <span class="material-icons-outlined text-lg">menu_book</span> Buku
+      </a>
+      <a href="/peminjaman/" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-700 text-sm">
+        <span class="material-icons-outlined text-lg">swap_horiz</span> Peminjaman
+      </a>
+      <a href="/siswa/" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-700 text-sm">
+        <span class="material-icons-outlined text-lg">group</span> Siswa
+      </a>
+    </nav>
+    <div class="mt-auto bg-slate-800 rounded-xl p-3">
+      <p class="text-xs text-slate-400">Admin Aktif</p>
+      <p class="font-semibold text-sm">Muna Dzar</p>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 overflow-y-auto p-6 md:p-8">
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>
