@@ -1,10 +1,9 @@
-{% extends "base.html" %}
-{% block title %}Tambah Siswa{% endblock %}
+{% extends "base.html" %} {% block title %}Tambah siswa{% endblock %}
 
 {% block content %}
 <div class="mb-6">
   <p class="text-sm text-slate-500">Tambah data siswa baru.</p>
-  <h1 class="text-2xl font-semibold text-slate-800">Tambah User</h1>
+  <h1 class="text-2xl font-semibold text-slate-800">Tambah Siswa</h1>
 </div>
 
 <div class="bg-white rounded-2xl border border-slate-200 p-6 max-w-lg">
@@ -13,24 +12,54 @@
     <div class="flex flex-col gap-4">
       <div>
         <label class="text-sm text-slate-600 mb-1 block">Nama</label>
-        <input type="text" name="nama" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <input
+          type="text"
+          name="nama"
+          required
+          class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        />
       </div>
       <div>
         <label class="text-sm text-slate-600 mb-1 block">Kelas</label>
-        <input type="text" name="kelas" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <input
+          type="text"
+          name="kelas"
+          required
+          class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        />
       </div>
       <div>
         <label class="text-sm text-slate-600 mb-1 block">NIS</label>
-        <input type="text" name="nis" required class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <input
+          type="text"
+          name="nis"
+          required
+          class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        />
       </div>
       <div class="flex items-center gap-2">
-        <input type="checkbox" name="is_active" id="is_active" checked class="w-4 h-4">
+        <input
+          type="checkbox"
+          name="is_active"
+          id="is_active"
+          checked
+          class="w-4 h-4"
+        />
         <label for="is_active" class="text-sm text-slate-600">Aktif</label>
       </div>
     </div>
     <div class="flex gap-2 mt-6">
-      <a href="{% url 'siswa_list' %}" class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700 text-sm">Batal</a>
-      <button type="submit" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm">Simpan</button>
+      <a
+        href="{% url 'siswa_list' %}"
+        class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700 text-sm"
+        >Batal</a
+      >
+      <button
+        type="submit"
+        class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm"
+      >
+        Simpan
+      </button>
     </div>
   </form>
 </div>

@@ -19,13 +19,10 @@ from django.urls import path, include
 from buku import views as buku_views
 
 urlpatterns = [
-
     path('admin/', admin.site.urls),
     path('', buku_views.dashboard, name='dashboard'),
     path('dashboard/', buku_views.dashboard, name='dashboard'),
     path('buku/', include('buku.urls')),
-    path('siswa/', include('siswa.urls')),
+    path('siswa/', include('siswa.urls')), 
     path('peminjaman/', include('peminjaman.urls')),
 ]
-
-

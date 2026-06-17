@@ -14,13 +14,13 @@ def dictfetchone(cursor):
 
 def siswa_list(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT id, nama, kelas, nis, is_active FROM siswa ORDER BY id ASC")
+        cursor.execute("SELECT id, nama, kelas, nis, is_active FROM buku_siswa ORDER BY id ASC")
         data_siswa = dictfetchall(cursor)
     return render(request, 'siswa_list.html', {'siswa_list': data_siswa})
 
 def siswa_detail(request, id):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM siswa WHERE id = %s", [id])
+        cursor.execute("SELECT * FROM buku_siswa WHERE id = %s", [id])
         siswa = dictfetchone(cursor)
     return render(request, 'siswa_detail.html', {'siswa': siswa})
 
@@ -33,7 +33,7 @@ def siswa_create(request):
 
         with connection.cursor() as cursor:
             cursor.execute("""
-                INSERT INTO siswa (nama, kelas, nis, is_active)
+                INSERT INTO buku_siswa  (nama, kelas, nis, is_active)
                 VALUES (%s, %s, %s, %s)
             """, [nama, kelas, nis, is_active])
         return redirect('siswa_list')
@@ -41,7 +41,7 @@ def siswa_create(request):
 
 def siswa_update(request, id):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM siswa WHERE id = %s", [id])
+        cursor.execute("SELECT * FROM buku_siswa WHERE id = %s", [id])
         siswa = dictfetchone(cursor)
 
     if request.method == 'POST':
@@ -52,7 +52,7 @@ def siswa_update(request, id):
 
         with connection.cursor() as cursor:
             cursor.execute("""
-                UPDATE siswa SET nama=%s, kelas=%s, nis=%s, is_active=%s
+                UPDATE buku_siswa SET nama=%s, kelas=%s, nis=%s, is_active=%s
                 WHERE id = %s
             """, [nama, kelas, nis, is_active, id])
         return redirect('siswa_list')
@@ -60,11 +60,11 @@ def siswa_update(request, id):
 
 def siswa_delete(request, id):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM siswa WHERE id = %s", [id])
+        cursor.execute("SELECT * FROM buku_siswa WHERE id = %s", [id])
         siswa = dictfetchone(cursor)
 
     if request.method == 'POST':
         with connection.cursor() as cursor:
-            cursor.execute("DELETE FROM siswa WHERE id = %s", [id])
+            cursor.execute("DELETE FROM buku_siswa WHERE id = %s", [id])
         return redirect('siswa_list')
     return render(request, 'siswa_delete.html', {'siswa': siswa})

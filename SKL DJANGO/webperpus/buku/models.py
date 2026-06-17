@@ -15,7 +15,7 @@ class Buku(models.Model):
     def __str__(self):
         return self.judul
 
-class Siswa(models.Model):
+class Buku_siswa(models.Model):
     nama      = models.CharField(max_length=100)
     kelas     = models.CharField(max_length=20)
     nis       = models.CharField(max_length=20, unique=True)
@@ -30,7 +30,7 @@ class Peminjaman(models.Model):
         ('dikembalikan', 'Dikembalikan'),
         ('terlambat', 'Terlambat'),
     ]
-    siswa          = models.ForeignKey(Siswa, on_delete=models.CASCADE)
+    buku_siswa          = models.ForeignKey(Buku_siswa, on_delete=models.CASCADE)
     buku           = models.ForeignKey(Buku, on_delete=models.CASCADE)
     tanggal_pinjam = models.DateField()
     jatuh_tempo    = models.DateField()
@@ -38,4 +38,4 @@ class Peminjaman(models.Model):
     status         = models.CharField(max_length=20, choices=STATUS_CHOICES, default='dipinjam')
 
     def __str__(self):
-        return f"{self.siswa.nama} - {self.buku.judul}"
+        return f"{self.buku_siswa.nama} - {self.buku.judul}"

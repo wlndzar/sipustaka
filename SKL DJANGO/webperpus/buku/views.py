@@ -20,7 +20,7 @@ def buku_list(request):
     with connection.cursor() as cursor:
         cursor.execute("""
             SELECT id, judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi
-            FROM buku
+            FROM buku_buku
             ORDER BY id DESC
         """)
         data_buku = dictfetchall(cursor)
@@ -30,7 +30,7 @@ def buku_list(request):
 
 def buku_detail(request, id):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM buku WHERE id = %s", [id])
+        cursor.execute("SELECT * FROM buku_buku WHERE id = %s", [id])
         buku = dictfetchone(cursor)
     return render(request, 'detail.html', {'buku': buku})
 
@@ -49,7 +49,7 @@ def buku_create(request):
 
         with connection.cursor() as cursor:
             cursor.execute("""
-                INSERT INTO buku (judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi)
+                INSERT INTO  buku_buku (judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """, [judul, pengarang, kategori, penerbit, tahun_terbit, rak, stok, deskripsi])
 
@@ -61,7 +61,7 @@ def buku_create(request):
 
 def buku_update(request, id):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM buku WHERE id = %s", [id])
+        cursor.execute("SELECT * FROM buku_buku WHERE id = %s", [id])
         buku = dictfetchone(cursor)
 
     if request.method == 'POST':
@@ -76,7 +76,7 @@ def buku_update(request, id):
 
         with connection.cursor() as cursor:
             cursor.execute("""
-                UPDATE buku
+                UPDATE buku_buku
                 SET judul=%s, pengarang=%s, kategori=%s, penerbit=%s,
                     tahun_terbit=%s, rak=%s, stok=%s, deskripsi=%s
                 WHERE id = %s
@@ -89,12 +89,12 @@ def buku_update(request, id):
 
 def buku_delete(request, id):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM buku WHERE id = %s", [id])
+        cursor.execute("SELECT * FROM buku_buku WHERE id = %s", [id])
         buku = dictfetchone(cursor)
 
     if request.method == 'POST':
         with connection.cursor() as cursor:
-            cursor.execute("DELETE FROM buku WHERE id = %s", [id])
+            cursor.execute("DELETE FROM buku_buku WHERE id = %s", [id])
         return redirect('buku_list')
 
     return render(request, 'delete.html', {'buku': buku})
@@ -103,19 +103,19 @@ def buku_delete(request, id):
 
 def dashboard(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT SUM(stok) FROM buku")
+        cursor.execute("SELECT SUM(stok) FROM buku_buku")
         total_buku = cursor.fetchone()[0] or 0
 
-        cursor.execute("SELECT COUNT(*) FROM buku")
+        cursor.execute("SELECT COUNT(*) FROM buku_buku")
         total_judul = cursor.fetchone()[0]
 
-        cursor.execute("SELECT COUNT(*) FROM peminjaman WHERE status = 'dipinjam'")
+        cursor.execute("SELECT COUNT(*) FROM buku_peminjaman WHERE status = 'dipinjam'")
         total_dipinjam = cursor.fetchone()[0]
 
-        cursor.execute("SELECT COUNT(*) FROM peminjaman WHERE status = 'dikembalikan'")
+        cursor.execute("SELECT COUNT(*) FROM buku_peminjaman WHERE status = 'dikembalikan'")
         total_kembali = cursor.fetchone()[0]
 
-        cursor.execute("SELECT judul, stok FROM buku ORDER BY stok DESC")
+        cursor.execute("SELECT judul, stok FROM buku_buku ORDER BY stok DESC")
         stok_buku = cursor.fetchall()
         max_stok = max([s[1] for s in stok_buku], default=1)
 
