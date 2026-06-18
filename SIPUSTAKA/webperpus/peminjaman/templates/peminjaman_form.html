@@ -1,0 +1,81 @@
+{% extends "base.html" %} {% block title %}Pinjam Buku{% endblock %} 
+
+{% block content %}
+<div class="mb-6">
+  <p class="text-sm text-slate-500">Catat peminjaman buku baru.</p>
+  <h1 class="text-2xl font-semibold text-slate-800">Pinjam Buku</h1>
+</div>
+
+<div class="bg-white rounded-2xl border border-slate-200 p-6 max-w-lg">
+  <form method="POST">
+    {% csrf_token %}
+    <div class="flex flex-col gap-4">
+      <div>
+        <label class="text-sm text-slate-600 mb-1 block">Nama Peminjam</label>
+        <select
+          name="buku_siswa_id"
+          required
+          class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        >
+          <option value="">-- Pilih Siswa --</option>
+          {% for s in siswa_list %}
+          <option value="{{ s.id }}">{{ s.nama }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="text-sm text-slate-600 mb-1 block">Buku</label>
+        <select
+          name="buku_id"
+          required
+          class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        >
+          <option value="">-- Pilih Buku --</option>
+          {% for b in buku_list %}
+          <option value="{{ b.id }}">{{ b.judul }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="text-sm text-slate-600 mb-1 block">Tanggal Pinjam</label>
+        <input
+          type="date"
+          name="tanggal_pinjam"
+          required
+          class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        />
+      </div>
+      <div>
+        <label class="text-sm text-slate-600 mb-1 block">Jatuh Tempo</label>
+        <input
+          type="date"
+          name="jatuh_tempo"
+          required
+          class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        />
+      </div>
+      <div>
+        <label class="text-sm text-slate-600 mb-1 block">Keperluan</label>
+        <textarea
+          name="keperluan"
+          rows="3"
+          class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+        ></textarea>
+      </div>
+    </div>
+    <div class="flex gap-2 mt-6">
+      <a
+        href="{% url 'peminjaman_list' %}"
+        class="px-4 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700 text-sm"
+        >Batal</a
+      >
+      <button
+        type="submit"
+        class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm"
+      >
+        Simpan
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

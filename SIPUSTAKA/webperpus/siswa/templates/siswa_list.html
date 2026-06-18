@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block title %}Data Siswa{% endblock %} 
+  
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <p class="text-sm text-slate-500">
+      Data siswa yang bisa meminjam buku.
+    </p>
+    <h1 class="text-2xl font-semibold text-slate-800">Siswa</h1>
+  </div>
+  <a
+    href="{% url 'siswa_create' %}"
+    class="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2 rounded-xl"
+  >
+    <span class="material-icons-outlined text-base">person_add</span> Tambah
+    Siswa
+  </a>
+</div>
+
+<div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="border-b border-slate-100">
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">ID</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Nama</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Kelas</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">NIS</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Status</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in siswa_list %}
+      <tr class="border-b border-slate-100 hover:bg-slate-50">
+        <td class="px-5 py-4">{{ s.id }}</td>
+        <td class="px-5 py-4">{{ s.nama }}</td>
+        <td class="px-5 py-4">{{ s.kelas }}</td>
+        <td class="px-5 py-4">{{ s.nis }}</td>
+        <td class="px-5 py-4">
+          {% if s.is_active %}
+          <span
+            class="bg-green-100 text-green-800 text-xs font-medium px-3 py-1 rounded-full"
+            >Aktif</span
+          >
+          {% else %}
+          <span
+            class="bg-red-100 text-red-800 text-xs font-medium px-3 py-1 rounded-full"
+            >Nonaktif</span
+          >
+          {% endif %}
+        </td>
+        <td class="px-5 py-4 flex gap-2">
+          <a
+            href="{% url 'siswa_detail' s.id %}"
+            class="px-3 py-1 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700"
+            >Detail</a
+          >
+          <a
+            href="{% url 'siswa_update' s.id %}"
+            class="px-3 py-1 rounded-lg bg-brand-600 hover:bg-brand-700 text-white"
+            >Edit</a
+          >
+          <a
+            href="{% url 'siswa_delete' s.id %}"
+            class="px-3 py-1 rounded-lg bg-red-500 hover:bg-red-600 text-white"
+            >Hapus</a
+          >
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="px-5 py-8 text-center text-slate-400">
+          Belum ada data siswa.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

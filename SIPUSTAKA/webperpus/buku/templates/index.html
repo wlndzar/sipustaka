@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Daftar Buku{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <div>
+    <p class="text-sm text-slate-500">Kelola data buku SIPUSTAKA.</p>
+    <h1 class="text-2xl font-semibold text-slate-800">Daftar Buku</h1>
+  </div>
+  <a href="/buku/tambah/" class="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2 rounded-xl">
+    <span class="material-icons-outlined text-base">add</span> Tambah Buku
+  </a>
+</div>
+
+<div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="border-b border-slate-100">
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">ID</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Judul</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Pengarang</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Kategori</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Penerbit</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Tahun</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Rak</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Stok</th>
+        <th class="text-left px-5 py-3 text-brand-600 font-medium">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for buku in buku_list %}
+      <tr class="border-b border-slate-100 hover:bg-slate-50">
+        <td class="px-5 py-4">{{ buku.id }}</td>
+        <td class="px-5 py-4">{{ buku.judul }}</td>
+        <td class="px-5 py-4">{{ buku.pengarang }}</td>
+        <td class="px-5 py-4">{{ buku.kategori }}</td>
+        <td class="px-5 py-4">{{ buku.penerbit }}</td>
+        <td class="px-5 py-4">{{ buku.tahun_terbit|date:"Y" }}</td>
+        <td class="px-5 py-4">{{ buku.rak }}</td>
+        <td class="px-5 py-4">{{ buku.stok }}</td>
+        <td class="px-5 py-4 flex gap-2">
+          <a href="/buku/{{ buku.id }}/" class="px-3 py-1 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700">Detail</a>
+          <a href="/buku/{{ buku.id }}/edit/" class="px-3 py-1 rounded-lg bg-brand-600 hover:bg-brand-700 text-white">Edit</a>
+          <a href="/buku/{{ buku.id }}/hapus/" class="px-3 py-1 rounded-lg bg-red-500 hover:bg-red-600 text-white">Hapus</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="9" class="px-5 py-8 text-center text-slate-400">Belum ada data buku.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

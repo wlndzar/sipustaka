@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Daftar buku{% endblock %}
+
+{% block content %} 
+
+<h1 class="text-2xl font-bold">Daftar Buku</h1>
+<p class="mb-5">Berikut adalah daftar buku yang tersedia:</p>
+
+
+<!-- tambahan -->
+
+ <a href="{% url 'buku_create' %}" class="inline-block mb-4 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700">
+    + Tambah Buku
+</a>
+
+
+
+<table class="w-full border-collapse text-sm">
+        <thead>
+            <tr class="bg-slate-100 text-left text-slate-700">
+                <th class="p-3 border border-slate-200">ID</th>
+                <th class="p-3 border border-slate-200">Judul</th>
+                <th class="p-3 border border-slate-200">Pengarang</th>
+                <th class="p-3 border border-slate-200">Kategori</th>
+                <th class="p-3 border border-slate-200">Penerbit</th>
+                <th class="p-3 border border-slate-200">Tahun Terbit</th>
+                <th class="p-3 border border-slate-200">Rak</th>
+                <th class="p-3 border border-slate-200">Stok</th>
+                <th class="p-3 border border-slate-200">Deskripsi</th>
+                <th class="p-3 border border-slate-200">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+         {% for buku in data %}   
+        <tr>
+            <td class="p-3 border border-slate-200">{{ buku.id }}</td>         
+            <td class="p-3 border border-slate-200">{{ buku.judul }}</td>         
+            <td class="p-3 border border-slate-200">{{ buku.pengarang }}</td>         
+            <td class="p-3 border border-slate-200">{{ buku.kategori }}</td>         
+            <td class="p-3 border border-slate-200">{{ buku.penerbit }}</td>         
+            <td class="p-3 border border-slate-200">{{ buku.tahun_terbit }}</td>         
+            <td class="p-3 border border-slate-200">{{ buku.rak }}</td>
+            <td class="p-3 border border-slate-200">{{ buku.stok }}</td>
+            <td class="p-3 border border-slate-200">{{ buku.deskripsi }}</td>
+            <td class="p-3 border border-slate-200 flex gap-4">
+              <a href="{% url 'buku_detail' buku.id %}" class="px-3 py-1 rounded-md bg-blue-100 text-blue-700 hover:bg-blue-200">
+                Detail
+                 </a>
+            
+              <a href="{% url 'buku_update' buku.id %}" class="px-3 py-1 rounded-md bg-yellow-100 text-yellow-700 hover:bg-yellow-200">
+                Edit
+              </a>
+
+              <a href="{% url 'buku_delete' buku.id %}" class="px-3 py-1 rounded-md bg-red-100 text-red-700 hover:bg-red-200">
+                Hapus
+              </a>
+            </td>
+          </tr> 
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
